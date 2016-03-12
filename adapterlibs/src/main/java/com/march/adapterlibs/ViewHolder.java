@@ -34,9 +34,9 @@ public class ViewHolder {
 
     /**
      * 使用资源id找到view
-     *
-     * @param resId
-     * @return
+     * @param resId 资源id
+     * @param <T> 泛型,View的子类
+     * @return 返回泛型类
      */
     public <T extends View> T getView(int resId) {
         T v = (T) cacheViews.get(resId);
@@ -52,8 +52,8 @@ public class ViewHolder {
     /**
      * 使用类反射找到字符串id代表的view
      *
-     * @param idName
-     * @return
+     * @param idName String类型ID
+     * @return 返回
      */
     public View getView(String idName) {
         View view = null;
@@ -82,9 +82,9 @@ public class ViewHolder {
     /**
      * 为控件设置tag
      *
-     * @param resId
-     * @param tag
-     * @return
+     * @param resId 资源ID
+     * @param tag 携带tag
+     * @return ViewHolder
      */
     public ViewHolder setTag(int resId, Object tag) {
         getView(resId).setTag(tag);
@@ -94,9 +94,9 @@ public class ViewHolder {
     /**
      * 为checkbox设置是否选中
      *
-     * @param resId
-     * @param isChecked
-     * @return
+     * @param resId 资源id
+     * @param isChecked 是否选中
+     * @return VH
      */
     public ViewHolder setChecked(int resId, boolean isChecked) {
         ((CheckBox) getView(resId)).setChecked(isChecked);
@@ -114,7 +114,7 @@ public class ViewHolder {
      *
      * @param resId 控件资源id
      * @param txt   设置的文本
-     * @return
+     * @return VH
      */
     public ViewHolder setText(int resId, String txt) {
         ((TextView) getView(resId)).setText(txt);
@@ -136,7 +136,7 @@ public class ViewHolder {
      *
      * @param resId    控件资源id
      * @param imgResId 图片资源id
-     * @return
+     * @return VH
      */
     public ViewHolder setImg(int resId, int imgResId) {
         ((ImageView) getView(resId)).setImageResource(imgResId);
@@ -148,7 +148,7 @@ public class ViewHolder {
      *
      * @param resId 控件资源id
      * @param bit   图片资源位图
-     * @return
+     * @return VH
      */
     public ViewHolder setImg(int resId, Bitmap bit) {
         ((ImageView) getView(resId)).setImageBitmap(bit);

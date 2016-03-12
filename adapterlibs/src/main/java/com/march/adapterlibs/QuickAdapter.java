@@ -89,12 +89,19 @@ public abstract class QuickAdapter<T> extends BaseAdapter {
 	 * @param holder
 	 * @param data
 	 */
+	/**
+	 * 绑定数据
+	 * @param holder  ViewHolder数据持有者
+	 * @param data 数据集
+	 * @param pos 数据集中的位置
+     */
 	public abstract void bindData4View(ViewHolder holder, T data,int pos);
 
 	/**
-	 * 绑定监听
-	 * @param holder
-	 * @param pos
+	 * 绑定监听器
+	 * @param holder  ViewHolder数据持有者
+	 * @param data 数据集
+	 * @param pos 数据集中的位置
 	 */
-	public abstract void bindListener4View(ViewHolder holder, T data,int pos);
+	public void bindListener4View(ViewHolder holder, T data,int pos){}
 }

@@ -1,19 +1,18 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
+version = "1.0.2"
 
-version = "1.0.1"
 android {
 
     resourcePrefix "cc_"
 
-
-    compileSdkVersion 23
+    compileSdkVersion 22
     buildToolsVersion "23.0.2"
 
     defaultConfig {
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 15
         versionCode 1
         versionName "1.0"
     }
@@ -28,22 +27,25 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.1.1'
+    compile 'com.android.support:appcompat-v7:22.+'
 }
 
 
 def siteUrl = 'https://github.com/chendongMarch/QuickAdapter'   // 项目的主页
 def gitUrl = 'git@github.com:chendongMarch/QuickAdapter.git'   // Git仓库的url
 group = "com.march.adapterlibs"            // Maven Group ID for the artifact，一般填你唯一的包名
+
 install {
     repositories.mavenInstaller {
         // This generates POM.xml with proper parameters
         pom {
             project {
                 packaging 'aar'
+
                 // Add your description here
-                name 'Android Quick Adapter to create a Adapter for ListView or GridView,apply more easier api'     //项目的描述 你可以多写一点
+                name 'quick adapter'
                 url siteUrl
+
                 // Set your license
                 licenses {
                     license {
@@ -53,28 +55,32 @@ install {
                 }
                 developers {
                     developer {
-                        id 'chendongmarch'        //填写的一些基本信息
+                        id 'chendongmarch'
                         name 'chendong'
                         email 'helloworld4x@gmail.com'
                     }
                 }
                 scm {
-                    connection 'git@github.com:chendongMarch/QuickAdapter.git'
-                    developerConnection 'git@github.com:chendongMarch/QuickAdapter.git'
-                    url 'https://github.com/chendongMarch/QuickAdapter'
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+
                 }
             }
         }
     }
 }
+
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
     classifier = 'sources'
 }
+
 task javadoc(type: Javadoc) {
     source = android.sourceSets.main.java.srcDirs
     classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
 }
+
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
@@ -83,6 +89,7 @@ artifacts {
     archives javadocJar
     archives sourcesJar
 }
+
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
 bintray {
@@ -92,8 +99,8 @@ bintray {
     pkg {
         repo = "maven"
         name = "QuickAdapter"    //发布到JCenter上的项目名字
-        websiteUrl = 'https://github.com/chendongMarch/'
-        vcsUrl = 'git@github.com:chendongMarch/QuickAdapter.git'
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
         publish = true
     }

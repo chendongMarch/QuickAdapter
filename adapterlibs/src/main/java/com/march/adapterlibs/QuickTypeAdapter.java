@@ -11,8 +11,7 @@ import java.util.List;
 
 /**
  * @author chendong
- *
- * @描述 分类型适配器,创建实体之后,调用addType()方法实现初始化
+ *         分类型适配器, 创建实体之后, 调用addType()方法实现初始化
  */
 public abstract class QuickTypeAdapter<T extends QuickInterface>
         extends BaseAdapter {
@@ -52,7 +51,8 @@ public abstract class QuickTypeAdapter<T extends QuickInterface>
 
     /**
      * 切换数据源
-     * @param datas
+     *
+     * @param datas 数据源
      */
     public void swapData(List<T> datas) {
         this.datas = datas;
@@ -109,25 +109,27 @@ public abstract class QuickTypeAdapter<T extends QuickInterface>
      * @param holder the viewholder
      * @param type   data's type
      * @param data   data
+     * @param pos    数据位置
      */
     public abstract void bindData4View(ViewHolder holder, T data, int type, int pos);
 
     /**
-     * 绑定监听
+     * * 绑定监听
      * bind listener
      *
      * @param holder the viewholder
      * @param type   data's type
      * @param pos    position
+     * @param data   数据集
      */
-    public abstract void bindListener4View(ViewHolder holder, T data, int type, int pos);
+    public void bindListener4View(ViewHolder holder, T data, int type, int pos) {
+    }
 
 
     /**
-     *
-     * @param type 数据的类型(如果有n种类型,那么type的值需要是0 ~ n-1)
+     * @param type  数据的类型(如果有n种类型,那么type的值需要是0 ~ n-1)
      * @param resId 该类型对应的资源文件的id
-     * @return
+     * @return QuickTypeAdapter
      */
     public QuickTypeAdapter addType(int type, int resId) {
         if (this.Res4Type == null)
