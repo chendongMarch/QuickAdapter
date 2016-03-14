@@ -13,10 +13,10 @@ import java.util.List;
  * @author chendong
  *         分类型适配器, 创建实体之后, 调用addType()方法实现初始化
  */
-public abstract class QuickTypeAdapter<T extends QuickInterface>
+public abstract class QuickTypeAdapter<D extends QuickInterface>
         extends BaseAdapter {
     private LayoutInflater layoutInflater;
-    private List<T> datas;
+    private List<D> datas;
     private SparseArray<AdapterConfig> Res4Type;
     private Context context;
 
@@ -24,28 +24,28 @@ public abstract class QuickTypeAdapter<T extends QuickInterface>
      * @param context 上下文对象
      * @param datas   数据集
      */
-    public QuickTypeAdapter(Context context, List<T> datas) {
+    public QuickTypeAdapter(Context context, List<D> datas) {
         super();
         this.layoutInflater = LayoutInflater.from(context);
         this.datas = datas;
         this.context = context;
     }
 
-    public QuickTypeAdapter(Context context, List<T> datas,
-                            SparseArray<AdapterConfig> Res4Type) {
+
+    public QuickTypeAdapter(Context context, List<D> datas, int res) {
         super();
         this.layoutInflater = LayoutInflater.from(context);
         this.datas = datas;
-        this.Res4Type = Res4Type;
         this.context = context;
+        Res4Type = new SparseArray<>();
+        Res4Type.put(0, new AdapterConfig(0, res));
     }
-
 
     protected Context getContext() {
         return context;
     }
 
-    protected List<T> getDatas() {
+    protected List<D> getDatas() {
         return datas;
     }
 
@@ -54,7 +54,7 @@ public abstract class QuickTypeAdapter<T extends QuickInterface>
      *
      * @param datas 数据源
      */
-    public void swapData(List<T> datas) {
+    public void swapData(List<D> datas) {
         this.datas = datas;
         notifyDataSetChanged();
     }
@@ -107,22 +107,22 @@ public abstract class QuickTypeAdapter<T extends QuickInterface>
      * bind data
      *
      * @param holder the viewholder
-     * @param type   data's type
+     * @param type   data's type  如果是单类型,type = 0
      * @param data   data
      * @param pos    数据位置
      */
-    public abstract void bindData4View(ViewHolder holder, T data, int type, int pos);
+    public abstract void bindData4View(ViewHolder holder, D data, int type, int pos);
 
     /**
      * * 绑定监听
      * bind listener
      *
      * @param holder the viewholder
-     * @param type   data's type
+     * @param type   data's type   如果是单类型,type = 0
      * @param pos    position
      * @param data   数据集
      */
-    public void bindListener4View(ViewHolder holder, T data, int type, int pos) {
+    public void bindListener4View(ViewHolder holder, D data, int type, int pos) {
     }
 
 

@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
-version = "1.0.3"
+version = "1.0.4"
 
 android {
 
@@ -33,6 +33,13 @@ dependencies {
 
 def siteUrl = 'https://github.com/chendongMarch/QuickAdapter'   // 项目的主页
 def gitUrl = 'git@github.com:chendongMarch/QuickAdapter.git'   // Git仓库的url
+def proName = 'QuickAdapter'
+def proDesc = 'quick adapter'
+def yourId = 'chendongmarch'
+def yourName = 'chendong'
+def yourEmail = 'helloworld4x@gmial.com'
+
+
 group = "com.march.adapterlibs"            // Maven Group ID for the artifact，一般填你唯一的包名
 
 install {
@@ -43,7 +50,7 @@ install {
                 packaging 'aar'
 
                 // Add your description here
-                name 'quick adapter'
+                name proDesc
                 url siteUrl
 
                 // Set your license
@@ -55,9 +62,9 @@ install {
                 }
                 developers {
                     developer {
-                        id 'chendongmarch'
-                        name 'chendong'
-                        email 'helloworld4x@gmail.com'
+                        id yourId
+                        name yourName
+                        email yourEmail
                     }
                 }
                 scm {
@@ -98,7 +105,7 @@ bintray {
     configurations = ['archives']
     pkg {
         repo = "maven"
-        name = "QuickAdapter"    //发布到JCenter上的项目名字
+        name = proName    //发布到JCenter上的项目名字
         websiteUrl = siteUrl
         vcsUrl = gitUrl
         licenses = ["Apache-2.0"]
