@@ -1,6 +1,7 @@
 package com.march.adapterlibs;
 
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.text.SpannableString;
 import android.util.SparseArray;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.march.adapterlibs.quick.Quick;
 
 import java.lang.reflect.Field;
 
@@ -34,8 +37,9 @@ public class ViewHolder {
 
     /**
      * 使用资源id找到view
+     *
      * @param resId 资源id
-     * @param <T> 泛型,View的子类
+     * @param <T>   泛型,View的子类
      * @return 返回泛型类
      */
     public <T extends View> T getView(int resId) {
@@ -53,10 +57,10 @@ public class ViewHolder {
      * 使用类反射找到字符串id代表的view
      *
      * @param idName String类型ID
-     * @return 返回
+     * @return 返回View
      */
-    public View getView(String idName) {
-        View view = null;
+    public <T extends View> T getView(String idName) {
+        T view = null;
         if (idName != null) {
             Class<R.id> idClass = R.id.class;
             try {
@@ -73,6 +77,13 @@ public class ViewHolder {
         return view;
     }
 
+    /**
+     * 设置是否可见
+     *
+     * @param resId    资源ID
+     * @param visiable visiable
+     * @return this
+     */
     public ViewHolder setVisibility(int resId, int visiable) {
         getView(resId).setVisibility(visiable);
         return this;
@@ -83,7 +94,7 @@ public class ViewHolder {
      * 为控件设置tag
      *
      * @param resId 资源ID
-     * @param tag 携带tag
+     * @param tag   携带tag
      * @return ViewHolder
      */
     public ViewHolder setTag(int resId, Object tag) {
@@ -94,7 +105,7 @@ public class ViewHolder {
     /**
      * 为checkbox设置是否选中
      *
-     * @param resId 资源id
+     * @param resId     资源id
      * @param isChecked 是否选中
      * @return VH
      */
@@ -104,6 +115,12 @@ public class ViewHolder {
     }
 
 
+    /**
+     * 设置背景
+     * @param resId 资源id
+     * @param bgRes 背景id
+     * @return this
+     */
     public ViewHolder setBg(int resId, int bgRes) {
         getView(resId).setBackgroundResource(bgRes);
         return this;
@@ -120,6 +137,7 @@ public class ViewHolder {
         ((TextView) getView(resId)).setText(txt);
         return this;
     }
+
     public ViewHolder setText(int resId, SpannableString txt) {
         ((TextView) getView(resId)).setText(txt);
         return this;
@@ -155,42 +173,11 @@ public class ViewHolder {
         return this;
     }
 
-//    public ViewHolder setImg(Context context, int resId, String url) {
-//        if (!"".equals(url) && url != null)
-//            Picasso.with(context).load(url).into((ImageView) getView(resId));
-//        return this;
-//    }
+    public ViewHolder setImg(Context context, int resId, String url) {
+        if (!"".equals(url) && url != null) {
+            Quick.get().load(context, url, (ImageView) getView(resId));
+        }
+        return this;
+    }
 
-    //    	public ViewHolder setImg(Context context,String resId,String url){
-//		if(!"".equals(url)&&url!=null)
-//			Picasso.with(context).load(url).placeholder(context.getResources().getDrawable(R.mipmap.image_default)).into((ImageView) getView(resId));
-//		return this;
-//	}
-//    public ViewHolder setImg(Context context, String resId, String url, int defaultId) {
-//        if (!"".equals(url) && url != null)
-//            Picasso.with(context).load(url).placeholder(ContextCompat.getDrawable(context, defaultId)).into((ImageView) getView(resId));
-//        return this;
-//    }
-//
-//    public ViewHolder setImg(Context context, int resId, String url, int defaultId) {
-//        if (!"".equals(url) && url != null)
-//            Picasso.with(context).load(url).placeholder(ContextCompat.getDrawable(context, defaultId)).into((ImageView) getView(resId));
-//        return this;
-//    }
-
-
-//    public ViewHolder setFrescoImg(int resId, String url) {
-//        SimpleDraweeView draweeView = (SimpleDraweeView) getView(resId);
-//        Uri uri = Uri.parse(url);
-//        if (url.endsWith(".gif")) {
-//            ImageRequest request = ImageRequestBuilder.newBuilderWithSource(uri).build();
-//            DraweeController controller = Fresco.newDraweeControllerBuilder()
-//                    .setImageRequest(request)
-//                    .setAutoPlayAnimations(true).build();
-//            draweeView.setController(controller);
-//        } else {
-//            draweeView.setImageURI(uri);
-//        }
-//        return this;
-//    }
 }
