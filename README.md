@@ -1,8 +1,7 @@
-1.0.4
-
+# compile 'com.march.adapterlibs:adapterlibs:1.0.5'
 #单类型抽象适配
-```
 ##方法一,使用QuickAdapter
+```
 QuickAdapter<Demo> adapter =
 new QuickAdapter<Demo>(BaseApplication.getInst(), R.layout.item_quickadapter, data) {
             @Override
@@ -15,8 +14,11 @@ new QuickAdapter<Demo>(BaseApplication.getInst(), R.layout.item_quickadapter, da
 
             }
         };
+```
+
 
 ##方法二,使用QuickTypeAdapter的带layout资源参数构造方法,注意不要调用addType了,实体类需要实现QuickInterface接口
+```java
 QuickTypeAdapter<Demo> typeAdapter =
 new QuickTypeAdapter<Demo>(BaseApplication.getInst(), data,R.layout.item_a) {
             @Override

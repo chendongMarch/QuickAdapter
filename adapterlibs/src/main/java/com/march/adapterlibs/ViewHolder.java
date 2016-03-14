@@ -54,10 +54,11 @@ public class ViewHolder {
     }
 
     /**
-     * 使用类反射找到字符串id代表的view
+     *  使用类反射找到字符串id代表的view
      *
      * @param idName String类型ID
      * @return 返回View
+     * @param <T> View泛型
      */
     public <T extends View> T getView(String idName) {
         T view = null;
