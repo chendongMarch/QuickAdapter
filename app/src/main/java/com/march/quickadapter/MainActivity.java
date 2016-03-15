@@ -2,7 +2,9 @@ package com.march.quickadapter;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.march.adapterlibs.QuickTypeAdapter;
 import com.march.adapterlibs.ViewHolder;
@@ -49,7 +51,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void bindData4View(ViewHolder holder, Demo data, int type, int pos) {
                 if(type==0)
-                holder.setImg(MainActivity.this, R.id.aaaa, "aaaa");
+                holder.setImg(MainActivity.this, R.id.aaaa, "aaaa").setLis(R.id.aaaa, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(MainActivity.this,"click",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         };
         adapter.addType(0, R.layout.item_a).addType(1, R.layout.item_b);

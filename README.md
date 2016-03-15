@@ -61,10 +61,11 @@ typeAdapter.addType(Demo.CODE_DETAIL, R.layout.item_quickadapter_type)
 #加载网络图片可以提前创建图片加载工具,然后调用ViewHodler.setImg()方法可以直接加载
 ```java
 //你可以在Activity或者Application调用这段代码进行全局配置,第二次调用会将以前的设置覆盖,所以只需要执行一次
-Quick.init(new Quick.ImgLoadTool() {
+Quick.init(new Quick.QuickLoad() {
             @Override
             public void load(Context context, String url, ImageView view) {
-                Glide.with(context).load(url).into(view);
+                Log.e("chendong","加载图片");
+                Glide.with(context).load("http://www.fresco-cn.org/static/fresco-logo.png").into(view);
             }
         });
 ```
