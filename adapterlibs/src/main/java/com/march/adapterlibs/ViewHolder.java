@@ -91,17 +91,7 @@ public class ViewHolder {
     }
 
 
-    /**
-     * 为控件设置tag
-     *
-     * @param resId 资源ID
-     * @param tag   携带tag
-     * @return ViewHolder
-     */
-    public ViewHolder setTag(int resId, Object tag) {
-        getView(resId).setTag(tag);
-        return this;
-    }
+
 
     /**
      * 为checkbox设置是否选中
@@ -179,6 +169,26 @@ public class ViewHolder {
             Quick.get().load(context, url, (ImageView) getView(resId));
         }
         return this;
+    }
+
+    public ViewHolder setLis(int resId,View.OnClickListener listener,Object tag){
+        getView(resId).setTag(R.string.quick_key,tag);
+        getView(resId).setOnClickListener(listener);
+        return this;
+    }
+    public ViewHolder setLis(int resId,View.OnClickListener listener){
+        getView(resId).setOnClickListener(listener);
+        return this;
+    }
+
+    public ViewHolder setTag(int resId, Object tag) {
+        getView(resId).setTag(R.string.quick_key,tag);
+        return this;
+    }
+
+
+    public <T> T getTag(int resId){
+        return (T) getView(resId).getTag(R.string.quick_key);
     }
 
 }

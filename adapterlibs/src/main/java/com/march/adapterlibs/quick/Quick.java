@@ -1,7 +1,10 @@
 package com.march.adapterlibs.quick;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
+
+import com.march.adapterlibs.R;
 
 /**
  * QuickAdapter     com.march.adapterlibs.quick
@@ -22,6 +25,9 @@ public class Quick {
         return imgLoadTool;
     }
 
+    public static <T> T getTagOutOfAdapter(View view){
+        return (T) view.getTag(R.string.quick_key);
+    }
     public interface QuickLoad {
         void load(Context context, String url, ImageView view);
     }

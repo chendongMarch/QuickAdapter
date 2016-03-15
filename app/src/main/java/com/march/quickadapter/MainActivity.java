@@ -54,5 +54,6 @@ public class MainActivity extends AppCompatActivity {
         };
         adapter.addType(0, R.layout.item_a).addType(1, R.layout.item_b);
         listView.setAdapter(adapter);
+
     }
 }

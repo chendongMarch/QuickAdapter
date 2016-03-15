@@ -69,8 +69,19 @@ Quick.init(new Quick.ImgLoadTool() {
         });
 ```
 
-#优化
+#更新使用方法
 ```java
+//Demo类是我的实体类
 //如果你使用的控件ViewHolder没有为你集成,如何避免强转?使用泛型解决
  holder.<Button>getView(R.id.abc).setText("");
+
+//设置监听事件
+public ViewHolder setLis(int resId,View.OnClickListener listener,Object tag)//带有tag监听
+public ViewHolder setLis(int resId,View.OnClickListener listener)//不带tag监听
+public ViewHolder setTag(int resId, Object tag)//给控件设置tag
+public <T> T getTag(int resId)//从ViewHolder获取tag,包含泛型,你可以这样holder.<Demo>getTag(R.id.xxx)
+
+//如果你在控件中设置了tag,当你在适配器外部使用tag时务必使用改方法获取,用来替代view.getTag()方法,
+包含泛型,你可以这样用 Quick.<Demo>getTagOutOfAdapter(listView);
+Quick.getTagOutOfAdapter(View view)
 ```
