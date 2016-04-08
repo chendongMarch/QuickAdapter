@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -16,9 +17,9 @@ import java.util.List;
 public abstract class QuickTypeAdapter<D extends QuickInterface>
         extends BaseAdapter {
     private LayoutInflater layoutInflater;
-    private List<D> datas;
     private SparseArray<AdapterConfig> Res4Type;
-    private Context context;
+    protected Context context;
+    protected List<D> datas;
 
     /**
      * @param context 上下文对象
@@ -32,6 +33,12 @@ public abstract class QuickTypeAdapter<D extends QuickInterface>
     }
 
 
+    /**
+     * 只有一种类型时可以使用该构造方法
+     * @param context 上下文
+     * @param datas 数据
+     * @param res 资源
+     */
     public QuickTypeAdapter(Context context, List<D> datas, int res) {
         super();
         this.layoutInflater = LayoutInflater.from(context);
@@ -41,21 +48,55 @@ public abstract class QuickTypeAdapter<D extends QuickInterface>
         Res4Type.put(0, new AdapterConfig(0, res));
     }
 
-    protected Context getContext() {
-        return context;
+
+    /**
+     * @param context 上下文对象
+     * @param ds   数据集
+     */
+    public QuickTypeAdapter(Context context, D[] ds) {
+        super();
+        this.layoutInflater = LayoutInflater.from(context);
+        Collections.addAll(datas,ds);
+        this.context = context;
     }
 
-    protected List<D> getDatas() {
-        return datas;
+
+    /**
+     * 只有一种类型时可以使用该构造方法
+     * @param context 上下文
+     * @param ds 数据
+     * @param res 资源
+     */
+    public QuickTypeAdapter(Context context, D[] ds, int res) {
+        super();
+        this.layoutInflater = LayoutInflater.from(context);
+        this.context = context;
+        Collections.addAll(datas,ds);
+        Res4Type = new SparseArray<>();
+        Res4Type.put(0, new AdapterConfig(0, res));
+    }
+
+
+
+    protected D getData(int pos) {
+        return datas.get(pos);
     }
 
     /**
      * 切换数据源
      *
-     * @param datas 数据源
+     * @param ds 数据源
      */
-    public void swapData(List<D> datas) {
-        this.datas = datas;
+    public void swapData(List<D> ds) {
+        this.datas.clear();
+        Collections.copy(datas,ds);
+        notifyDataSetChanged();
+    }
+
+
+    public void swapData(D[] ds) {
+        this.datas.clear();
+        Collections.addAll(datas,ds);
         notifyDataSetChanged();
     }
 

@@ -1,7 +1,8 @@
-# compile 'com.march.adapterlibs:adapterlibs:1.0.5'
+# compile 'com.march.adapterlibs:adapterlibs:1.0.6'
 #单类型抽象适配
 ##方法一,使用QuickAdapter
 ```
+//过时
 QuickAdapter<Demo> adapter =
 new QuickAdapter<Demo>(BaseApplication.getInst(), R.layout.item_quickadapter, data) {
             @Override
@@ -31,6 +32,29 @@ new QuickTypeAdapter<Demo>(BaseApplication.getInst(), data,R.layout.item_a) {
             }
 };
 ```
+
+
+##方法三,使用Convert类实现转换
+```java
+//单类型适配不需要实现QuickInterface接口
+QuickTypeAdapter<QuickModel> adapter2 = new QuickTypeAdapter<QuickModel>(MainActivity.this,
+                Convertor.convert(list)) {
+     @Override
+     public void bindData4View(ViewHolder holder, QuickModel data, int type, int pos) {
+                Demo demo = data.<Demo>get();
+     }
+};
+//基本对象简单适配,比如String,Integer等类型希望简单适配时不需要实现QuickInterface接口
+List<Integer> asd = new ArrayList<>();
+QuickTypeAdapter<QuickModel> adapter1 = new QuickTypeAdapter<QuickModel>(MainActivity.this, Convertor.convert(asd)) {
+     @Override
+     public void bindData4View(ViewHolder holder, QuickModel data, int type, int pos) {
+
+     }
+};
+```
+
+
 #多类型适配
 ```
 //实体类需要实现QuickInterface接口
@@ -68,6 +92,22 @@ Quick.init(new Quick.QuickLoad() {
                 Glide.with(context).load("http://www.fresco-cn.org/static/fresco-logo.png").into(view);
             }
         });
+```
+
+
+#API
+```java
+//在字类可以直接获取
+protected Context context;
+protected int resId;
+protected List<T> datas;
+
+//兼容参数为数组的构造方法
+public QuickTypeAdapter(Context context,int resId,T[] ts)
+//获取数据
+public T getData(int pos)
+//更换数据源
+public void swapData(List<T> datas)
 ```
 
 #更新使用方法

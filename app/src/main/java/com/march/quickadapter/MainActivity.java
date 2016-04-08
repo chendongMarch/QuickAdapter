@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import com.march.adapterlibs.QuickTypeAdapter;
 import com.march.adapterlibs.ViewHolder;
+import com.march.adapterlibs.helper.Convertor;
+import com.march.adapterlibs.model.QuickModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         list.add(new Demo("type2"));
         list.add(new Demo("type1"));
         list.add(new Demo("type1"));
+
         QuickTypeAdapter<Demo> adapter = new QuickTypeAdapter<Demo>(MainActivity.this, list) {
             @Override
             public void bindData4View(ViewHolder holder, Demo data, int type, int pos) {
@@ -61,6 +64,26 @@ public class MainActivity extends AppCompatActivity {
         };
         adapter.addType(0, R.layout.item_a).addType(1, R.layout.item_b);
         listView.setAdapter(adapter);
+
+
+        List<Integer> asd = new ArrayList<>();
+
+        QuickTypeAdapter<QuickModel> adapter1 = new QuickTypeAdapter<QuickModel>(MainActivity.this, Convertor.convert(asd)) {
+            @Override
+            public void bindData4View(ViewHolder holder, QuickModel data, int type, int pos) {
+
+            }
+        };
+
+
+        QuickTypeAdapter<QuickModel> adapter2 = new QuickTypeAdapter<QuickModel>(MainActivity.this,
+                Convertor.convert(list)) {
+
+            @Override
+            public void bindData4View(ViewHolder holder, QuickModel data, int type, int pos) {
+                Demo demo = data.<Demo>get();
+            }
+        };
 
     }
 }
