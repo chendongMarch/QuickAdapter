@@ -14,7 +14,7 @@ import java.util.List;
  * 抽象适配器，使用了模板方法模式，将设置item显示内容的部分抽象到了类外 这是单类型的抽象适配
  *
  * 已经过时,建议使用public QuickTypeAdapter(Context context, D[] ds, int res);
- *               public QuickTypeAdapter(Context context, List<D> datas, int res);
+ *               public QuickTypeAdapter(Context context, List datas, int res);
  *
  * @param <T> 泛型
  * @author chendong

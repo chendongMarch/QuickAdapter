@@ -2,7 +2,7 @@
 #单类型抽象适配
 ##方法一,使用QuickAdapter
 ```
-//过时
+//过时,
 QuickAdapter<Demo> adapter =
 new QuickAdapter<Demo>(BaseApplication.getInst(), R.layout.item_quickadapter, data) {
             @Override
@@ -20,6 +20,7 @@ new QuickAdapter<Demo>(BaseApplication.getInst(), R.layout.item_quickadapter, da
 
 ##方法二,使用QuickTypeAdapter的带layout资源参数构造方法,注意不要调用addType了,实体类需要实现QuickInterface接口
 ```java
+//Demo类是实体类,需要实现QuickInterface接口
 QuickTypeAdapter<Demo> typeAdapter =
 new QuickTypeAdapter<Demo>(BaseApplication.getInst(), data,R.layout.item_a) {
             @Override
@@ -36,7 +37,7 @@ new QuickTypeAdapter<Demo>(BaseApplication.getInst(), data,R.layout.item_a) {
 
 ##方法三,使用Convert类实现转换
 ```java
-//单类型适配不需要实现QuickInterface接口
+//单类型适配不需要实现QuickInterface接口,Demo类是实体类,不需要实现QuickInterface接口,QuickModel是库内实现的封装类
 QuickTypeAdapter<QuickModel> adapter2 = new QuickTypeAdapter<QuickModel>(MainActivity.this,
                 Convertor.convert(list)) {
      @Override
@@ -44,6 +45,7 @@ QuickTypeAdapter<QuickModel> adapter2 = new QuickTypeAdapter<QuickModel>(MainAct
                 Demo demo = data.<Demo>get();
      }
 };
+
 //基本对象简单适配,比如String,Integer等类型希望简单适配时不需要实现QuickInterface接口
 List<Integer> asd = new ArrayList<>();
 QuickTypeAdapter<QuickModel> adapter1 = new QuickTypeAdapter<QuickModel>(MainActivity.this, Convertor.convert(asd)) {
@@ -57,7 +59,7 @@ QuickTypeAdapter<QuickModel> adapter1 = new QuickTypeAdapter<QuickModel>(MainAct
 
 #多类型适配
 ```
-//实体类需要实现QuickInterface接口
+//Demo类是实体类,需要实现QuickInterface接口
 QuickTypeAdapter<Demo> typeAdapter = 
 new QuickTypeAdapter<Demo>(BaseApplication.getInst(), data) {
             @Override
