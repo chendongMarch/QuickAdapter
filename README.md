@@ -2,7 +2,7 @@
 #单类型抽象适配
 ##方法一,使用QuickAdapter
 ```
-//过时,
+//过时,Demo类是实体类
 QuickAdapter<Demo> adapter =
 new QuickAdapter<Demo>(BaseApplication.getInst(), R.layout.item_quickadapter, data) {
             @Override
@@ -96,6 +96,26 @@ Quick.init(new Quick.QuickLoad() {
         });
 ```
 
+#继承实现自己的adapter
+```java
+public class MyAdapter extends QuickTypeAdapter<Demo> {
+
+
+    public MyAdapter(Context context, List<Demo> datas) {
+        super(context, datas);
+    }
+
+    @Override
+    public void bindData4View(ViewHolder holder, Demo data, int type, int pos) {
+
+    }
+
+    @Override
+    public void bindListener4View(ViewHolder holder, Demo data, int type, int pos) {
+        super.bindListener4View(holder, data, type, pos);
+    }
+}
+```
 
 #API
 ```java
