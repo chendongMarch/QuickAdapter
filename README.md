@@ -1,4 +1,4 @@
-# compile 'com.march.adapterlibs:adapterlibs:1.0.6'
+# compile 'com.march.adapterlibs:adapterlibs:1.0.7'
 #单类型抽象适配
 ##方法一,使用QuickAdapter
 ```
