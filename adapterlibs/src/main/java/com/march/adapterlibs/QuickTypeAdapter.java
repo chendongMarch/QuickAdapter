@@ -5,7 +5,9 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +22,7 @@ public abstract class QuickTypeAdapter<D extends QuickInterface>
     private SparseArray<AdapterConfig> Res4Type;
     protected Context context;
     protected List<D> datas;
-
+    private boolean isScrollEnd;
     /**
      * @param context 上下文对象
      * @param datas   数据集
@@ -35,9 +37,10 @@ public abstract class QuickTypeAdapter<D extends QuickInterface>
 
     /**
      * 只有一种类型时可以使用该构造方法
+     *
      * @param context 上下文
-     * @param datas 数据
-     * @param res 资源
+     * @param datas   数据
+     * @param res     资源
      */
     public QuickTypeAdapter(Context context, List<D> datas, int res) {
         super();
@@ -51,31 +54,46 @@ public abstract class QuickTypeAdapter<D extends QuickInterface>
 
     /**
      * @param context 上下文对象
-     * @param ds   数据集
+     * @param ds      数据集
      */
     public QuickTypeAdapter(Context context, D[] ds) {
         super();
         this.layoutInflater = LayoutInflater.from(context);
-        Collections.addAll(datas,ds);
+        Collections.addAll(datas, ds);
         this.context = context;
     }
 
+    public void setToWithLoadMore(ListView listView, final int preLoadNum, final Runnable runnable) {
+        listView.setAdapter(this);
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                if (isScrollEnd && scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+                    if (runnable != null) runnable.run();
+                }
+            }
+
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+                isScrollEnd = firstVisibleItem + visibleItemCount + preLoadNum == totalItemCount;
+            }
+        });
+    }
 
     /**
      * 只有一种类型时可以使用该构造方法
+     *
      * @param context 上下文
-     * @param ds 数据
-     * @param res 资源
+     * @param ds      数据
+     * @param res     资源
      */
     public QuickTypeAdapter(Context context, D[] ds, int res) {
         super();
         this.layoutInflater = LayoutInflater.from(context);
         this.context = context;
-        Collections.addAll(datas,ds);
+        Collections.addAll(datas, ds);
         Res4Type = new SparseArray<>();
         Res4Type.put(0, new AdapterConfig(0, res));
     }
-
 
 
     protected D getData(int pos) {
@@ -89,14 +107,14 @@ public abstract class QuickTypeAdapter<D extends QuickInterface>
      */
     public void swapData(List<D> ds) {
         this.datas.clear();
-        Collections.copy(datas,ds);
+        Collections.copy(datas, ds);
         notifyDataSetChanged();
     }
 
 
     public void swapData(D[] ds) {
         this.datas.clear();
-        Collections.addAll(datas,ds);
+        Collections.addAll(datas, ds);
         notifyDataSetChanged();
     }
 

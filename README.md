@@ -1,4 +1,12 @@
-# compile 'com.march.adapterlibs:adapterlibs:1.0.7'
+# compile 'com.march.adapterlibs:adapterlibs:1.0.8'
+
+
+
+#1.0.6  不再维护QuickAdapter,单类型多类型都使用QuickTypeAdapter实现
+#1.0.7  增加QuickModel,可以兼容适配String,Integer等Java基本类型数据,可以在不实现QuickInterface的基础上实现单类型适配,兼容实现数组构造Adapter
+#1.0.8  内置上拉加载更多方法
+
+
 #单类型抽象适配
 ##方法一,使用QuickAdapter
 ```
@@ -46,6 +54,7 @@ QuickTypeAdapter<QuickModel> adapter2 = new QuickTypeAdapter<QuickModel>(MainAct
      }
 };
 
+
 //基本对象简单适配,比如String,Integer等类型希望简单适配时不需要实现QuickInterface接口
 List<Integer> asd = new ArrayList<>();
 QuickTypeAdapter<QuickModel> adapter1 = new QuickTypeAdapter<QuickModel>(MainActivity.this, Convertor.convert(asd)) {
@@ -82,6 +91,15 @@ new QuickTypeAdapter<Demo>(BaseApplication.getInst(), data) {
 //添加每种类型的xml文件
 typeAdapter.addType(Demo.CODE_DETAIL, R.layout.item_quickadapter_type)
                 .addType(Demo.JUST_TEST, R.layout.item_quickadapter);
+```
+
+
+#上拉加载更多
+```java
+//使用该方法可以内置实现自动加载更多的逻辑
+//preLoadNum是预加载的Item个数,不需要预加载时可设置为0
+//runnable时当加载更多的逻辑触发时,执行的任务
+public void setToWithLoadMore(ListView listView, final int preLoadNum, final Runnable runnable);
 ```
 
 #加载网络图片可以提前创建图片加载工具,然后调用ViewHodler.setImg()方法可以直接加载
